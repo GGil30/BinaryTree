@@ -158,6 +158,7 @@ public class BST {
                 return;
             }
             helpInsert(val, n.getLeft());
+
             return;
         }
         else
