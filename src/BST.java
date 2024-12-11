@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 /**
  * An Integer Binary Search Tree
- * @author: Your Name Here
- * @version: Date
+ * @author: Gabriel Gil
+ * @version: 12/09/24
  */
 
 public class BST {
@@ -47,8 +47,27 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        // TODO: Complete the search function
-        return false;
+        return helpSearch(val, root);
+    }
+
+    public boolean helpSearch(int val, BSTNode n)
+    {
+        if(n == null)
+        {
+            return false;
+        }
+        if (val == n.getVal())
+        {
+            return true;
+        }
+        else if(val < n.getVal())
+        {
+           return helpSearch(val, n.getLeft());
+        }
+        else
+        {
+            return helpSearch(val, n.getRight());
+        }
     }
 
     /**
@@ -56,7 +75,19 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
-        return null;
+        ArrayList<BSTNode> inOrder = new ArrayList<BSTNode>();
+        helpGetInorder(root, inOrder);
+        return inOrder;
+    }
+
+    public void helpGetInorder(BSTNode n, ArrayList<BSTNode> inOrder){
+        if(n == null)
+        {
+            return;
+        }
+        helpGetInorder(n.getLeft(), inOrder);
+        inOrder.add(n);
+        helpGetInorder(n.getRight(), inOrder);
     }
 
     /**
@@ -64,15 +95,42 @@ public class BST {
      */
     public ArrayList<BSTNode> getPreorder() {
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> preOrder = new ArrayList<BSTNode>();
+        helpGetPreorder(root, preOrder);
+        return preOrder;
     }
+
+    public void helpGetPreorder(BSTNode n, ArrayList<BSTNode> preOrder)
+    {
+        if(n == null)
+        {
+            return;
+        }
+        preOrder.add(n);
+        helpGetPreorder(n.getLeft(), preOrder);
+        helpGetPreorder(n.getRight(), preOrder);
+    }
+
 
     /**
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder() {
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> postOrder = new ArrayList<BSTNode>();
+        helpGetPostorder(root, postOrder);
+        return postOrder;
+    }
+
+    public void helpGetPostorder(BSTNode n, ArrayList<BSTNode> postOrder)
+    {
+        if(n == null)
+        {
+            return;
+        }
+        helpGetPreorder(n.getLeft(), postOrder);
+        helpGetPreorder(n.getRight(), postOrder);
+        postOrder.add(n);
     }
 
     /**
@@ -83,7 +141,36 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+
     }
+
+    public void helpInsert(int val, BSTNode n)
+    {
+        if(val == n.getVal())
+        {
+            return;
+        }
+        if(val < n.getVal())
+        {
+            if(n.getLeft() == null)
+            {
+                n.setLeft(new BSTNode(val));
+                return;
+            }
+            helpInsert(val, n.getLeft());
+            return;
+        }
+        else
+        {
+            if(n.getRight() == null)
+            {
+                n.setRight(new BSTNode(val));
+                return;
+            }
+            helpInsert(val, n.getRight());
+        }
+    }
+
 
     /**
      * Determines if the current BST is
