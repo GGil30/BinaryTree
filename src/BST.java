@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * An Integer Binary Search Tree
  * @author: Gabriel Gil
- * @version: 12/09/24
+ * @version: 12/13/24
  */
 
 public class BST {
@@ -47,23 +47,29 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
+        // Call the helper function for search
         return helpSearch(val, root);
     }
 
     public boolean helpSearch(int val, BSTNode n)
     {
-        if(n == null)
-        {
+        // Base case: if there is no node, return false
+        if(n == null) {
             return false;
         }
+        // If val matches the value of the node, return true as the value has been found
         if (val == n.getVal())
         {
             return true;
         }
+        // If the value is less than the value of the node, search the let side of the tree calling helpSearch again
+        // on the left side of the tree
         else if(val < n.getVal())
         {
            return helpSearch(val, n.getLeft());
         }
+        // Otherwise, the value is on the right side of the tree, so search the right side of the tree calling
+        // helpSearch again on the right side of the tree
         else
         {
             return helpSearch(val, n.getRight());
@@ -128,8 +134,8 @@ public class BST {
         {
             return;
         }
-        helpGetPreorder(n.getLeft(), postOrder);
-        helpGetPreorder(n.getRight(), postOrder);
+        helpGetPostorder(n.getLeft(), postOrder);
+        helpGetPostorder(n.getRight(), postOrder);
         postOrder.add(n);
     }
 
@@ -141,7 +147,7 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
-
+        helpInsert(val, root);
     }
 
     public void helpInsert(int val, BSTNode n)
@@ -158,8 +164,6 @@ public class BST {
                 return;
             }
             helpInsert(val, n.getLeft());
-
-            return;
         }
         else
         {
