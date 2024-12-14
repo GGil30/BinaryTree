@@ -51,27 +51,24 @@ public class BST {
         return helpSearch(val, root);
     }
 
-    public boolean helpSearch(int val, BSTNode n)
-    {
+    // Help search function which takes in the value and the root node and recursively searches for the value
+    public boolean helpSearch(int val, BSTNode n) {
         // Base case: if there is no node, return false
         if(n == null) {
             return false;
         }
         // If val matches the value of the node, return true as the value has been found
-        if (val == n.getVal())
-        {
+        if (val == n.getVal()) {
             return true;
         }
         // If the value is less than the value of the node, search the let side of the tree calling helpSearch again
         // on the left side of the tree
-        else if(val < n.getVal())
-        {
+        else if(val < n.getVal()) {
            return helpSearch(val, n.getLeft());
         }
         // Otherwise, the value is on the right side of the tree, so search the right side of the tree calling
         // helpSearch again on the right side of the tree
-        else
-        {
+        else {
             return helpSearch(val, n.getRight());
         }
     }
@@ -81,16 +78,21 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
+        // Create a BST node array list to pass into the helper function and call the helper function
         ArrayList<BSTNode> inOrder = new ArrayList<BSTNode>();
         helpGetInorder(root, inOrder);
         return inOrder;
     }
 
-    public void helpGetInorder(BSTNode n, ArrayList<BSTNode> inOrder){
-        if(n == null)
-        {
+    // Help get in order function to recursively put the arraylist in order. Takes in a root node and the arraylist
+    // to put the nodes in order
+    public void helpGetInorder(BSTNode n, ArrayList<BSTNode> inOrder) {
+        // If the node does not exist, exit the method call.
+        if(n == null) {
             return;
         }
+        // If the node does exist, call the helper function on the left side of the node, add the node, and then call
+        // the helper function on the right side of the node
         helpGetInorder(n.getLeft(), inOrder);
         inOrder.add(n);
         helpGetInorder(n.getRight(), inOrder);
@@ -101,17 +103,21 @@ public class BST {
      */
     public ArrayList<BSTNode> getPreorder() {
         // TODO: Complete preorder traversal
+        // Create a BST node array list to pass into the helper function and call the helper function
         ArrayList<BSTNode> preOrder = new ArrayList<BSTNode>();
         helpGetPreorder(root, preOrder);
         return preOrder;
     }
 
-    public void helpGetPreorder(BSTNode n, ArrayList<BSTNode> preOrder)
-    {
-        if(n == null)
-        {
+    // Help get preorder function to recursively put the nodes in preorder. Takes in an array list of BST nodes and
+    // the root node
+    public void helpGetPreorder(BSTNode n, ArrayList<BSTNode> preOrder) {
+        // If the node doesn't exist, don't do anything and exit that method call
+        if(n == null) {
             return;
         }
+        // If the node does exist, add it to the arraylist, and call helpGetPreorder on the left and right sides of
+        // that node
         preOrder.add(n);
         helpGetPreorder(n.getLeft(), preOrder);
         helpGetPreorder(n.getRight(), preOrder);
@@ -123,17 +129,21 @@ public class BST {
      */
     public ArrayList<BSTNode> getPostorder() {
         // TODO: Complete postorder traversal
+        // Create a BST node array list to pass into the helper function and call the helper function
         ArrayList<BSTNode> postOrder = new ArrayList<BSTNode>();
         helpGetPostorder(root, postOrder);
         return postOrder;
     }
 
-    public void helpGetPostorder(BSTNode n, ArrayList<BSTNode> postOrder)
-    {
-        if(n == null)
-        {
+    // helpGetPostorder function to recursively put the tree in postOrder. Takes in a root node and the arraylist for
+    // the post order
+    public void helpGetPostorder(BSTNode n, ArrayList<BSTNode> postOrder) {
+        // If the node doesn't exist, exit that method call
+        if(n == null) {
             return;
         }
+        // If the node does exist, call the helpGetPostorder function on the left and right sides of that node, and then
+        // add that node
         helpGetPostorder(n.getLeft(), postOrder);
         helpGetPostorder(n.getRight(), postOrder);
         postOrder.add(n);
@@ -147,28 +157,32 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+        // Call the insert helper function
         helpInsert(val, root);
     }
 
-    public void helpInsert(int val, BSTNode n)
-    {
-        if(val == n.getVal())
-        {
+    // Insert helper function to recursively add the desired value if it should be added. Takes in the value and the
+    // root node
+    public void helpInsert(int val, BSTNode n) {
+        // If the value == the node value, then exit the method call as the val already exists in the tree
+        if(val == n.getVal()) {
             return;
         }
-        if(val < n.getVal())
-        {
-            if(n.getLeft() == null)
-            {
+        // If the value is less than the node value, and there is no left child of the node, then add a new node to the
+        // tree with that value and exit the method call. If there is a left child of the node, call helpInsert on that
+        // left child
+        if(val < n.getVal()) {
+            if(n.getLeft() == null) {
                 n.setLeft(new BSTNode(val));
                 return;
             }
             helpInsert(val, n.getLeft());
         }
-        else
-        {
-            if(n.getRight() == null)
-            {
+        // Otherwise, the value is more than the node value, so if there is no right child of the node, then add a new
+        // node to the tree with that value and exit the method call. If there is a right child of the node, call
+        // helpInsert on that right child
+        else {
+            if(n.getRight() == null) {
                 n.setRight(new BSTNode(val));
                 return;
             }
@@ -210,7 +224,7 @@ public class BST {
         sol = tree.getPostorder();
         printNodes(sol);
 
-        tree.insert(8);
+        tree.insert(4);
         System.out.println("\nInorder traversal of binary tree is");
         sol = tree.getInorder();
         printNodes(sol);
